@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  server:
+    image: tfs
+    ports:
+      - '8501:8501'
+  web:
+    image: flaskweb
+    ports:
+      - '8080:8080'

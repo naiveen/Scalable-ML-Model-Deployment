@@ -9,21 +9,17 @@
         <div class="container">
             {%include 'includes/_messages.html' %}
             <div class="row">
-                <h1 class="text-center">AND GATE TEST</h1>
+                <h1 class="text-center">Enter Image URL</h1>
             </div>
-
+  
                     <form action="{{url_for('home')}}" method="post">
                         <div class="form-row">
                             <div class="col">
-                              <input type="text" class="form-control" name="inp1" placeholder="input 1">
-                            </div>
-                            <div class="col">
-                              <input type="text" class="form-control" name="inp2" placeholder="input 2">
+                              <input type="text" class="form-control" name="IMAGE_URL" placeholder="https://tensorflow.org/images/blogs/serving/cat.jpg">
                             </div>
                             <div class="col">
                                 <button type="submit" class="btn btn-primary ml-4">Submit</button>
                             </div>
-
                           </div>
                     </form>
         </div>

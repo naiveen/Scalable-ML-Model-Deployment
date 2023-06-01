@@ -1,29 +1,69 @@
+from __future__ import print_function
+
 from flask import Flask, render_template, flash, request
-import requests
 from os import environ
+
+import base64
+import io
+import json
+
+import numpy as np
+from PIL import Image
+import requests
 
 app = Flask(__name__)
 
-def tfserving_request(req_input, model_name): #1
-    url = f"http://localhost:8501/v1/models/{model_name}:predict" #2
-    input_request = {"instances": [req_input]} #3
-    response = requests.post(url=url, json=input_request) #4
-    return response
+def tfserving_request(IMAGE_URL, model_name): #1
+
+    """
+    Should change to grpc from json
+
+    """
+
+    # The server URL specifies the endpoint of your server running the ResNet
+    # model with the name "resnet" and using the predict interface.
+    SERVER_URL = 'http://server:8501/v1/models/resnet_classification:predict'
+
+    # Current Resnet model in TF Model Garden (as of 7/2021) does not accept JPEG
+    # as input
+    MODEL_ACCEPT_JPG = False
+
+    dl_request = requests.get(IMAGE_URL, stream=True)
+    dl_request.raise_for_status()
+
+
+    if MODEL_ACCEPT_JPG:
+        # Compose a JSON Predict request (send JPEG image in base64).
+        jpeg_bytes = base64.b64encode(dl_request.content).decode('utf-8')
+        predict_request = '{"instances" : [{"b64": "%s"}]}' % jpeg_bytes
+    else:
+        # Compose a JOSN Predict request (send the image tensor).
+        jpeg_rgb = Image.open(io.BytesIO(dl_request.content))
+        # Normalize and batchify the image
+        jpeg_rgb = np.expand_dims(np.array(jpeg_rgb) / 255.0, 0).tolist()
+        predict_request = json.dumps({'instances': jpeg_rgb})
+
+
+
+    response = requests.post(SERVER_URL, data=predict_request)
+    response.raise_for_status()
+    prediction = response.json()['predictions'][0]
+
+    return np.argmax(prediction)
 
 
 @app.route("/home",methods=["GET","POST"]) #1
 def home():
     if request.method == "POST": #2
 
-        inp1 = int(request.form["inp1"]) #3
-        inp2 = int(request.form["inp2"])
+        # resnet_classification is the model name
+        IMAGE_URL = request.form["IMAGE_URL"]
+        response = tfserving_request(IMAGE_URL, "resnet_classification") #4
 
-        response = tfserving_request([inp1,inp2], "1602624873") #4
-
-        resp = response.json() #5
-        flash(f"obtained {inp1} and {inp2} have a prediction of {resp['predictions']}", 'success') #6
+        flash(f"Predicted class for {IMAGE_URL} is  {response}", 'success') #6
 
     return render_template("index.html") #7
-
+app.secret_key = "nlhkjtgjhfhvhjfyfgcjgdtdgcngcghdt"
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=int(environ.get('PORT', 8080)))
+
