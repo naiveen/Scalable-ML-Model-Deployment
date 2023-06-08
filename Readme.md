@@ -1,10 +1,15 @@
 Steps:
+** For serving from Docker
+docker-compose up
 
-1.  docker build -t tfs .
-2.  cd frontend
-3.  docker build -t flaskweb .
-4.  cd ../
-5.  docker-compose up
+** For serving from kubernetes
+kubectl apply -f k8s
+
+
+To start the service:
+minikube service tfweb-load-balancer-service
+
+
 **
   Server Url : http://127.0.0.1:8080/home
   Test Url : https://tensorflow.org/images/blogs/serving/cat.jpg

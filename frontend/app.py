@@ -22,7 +22,7 @@ def tfserving_request(IMAGE_URL, model_name): #1
 
     # The server URL specifies the endpoint of your server running the ResNet
     # model with the name "resnet" and using the predict interface.
-    SERVER_URL = 'http://server:8501/v1/models/resnet_classification:predict'
+    SERVER_URL = 'http://model-cluster-ip-service:8501/v1/models/resnet_classification:predict'
 
     # Current Resnet model in TF Model Garden (as of 7/2021) does not accept JPEG
     # as input
@@ -51,7 +51,7 @@ def tfserving_request(IMAGE_URL, model_name): #1
 
     return np.argmax(prediction)
 
-
+@app.route("/",methods=["GET","POST"])
 @app.route("/home",methods=["GET","POST"]) #1
 def home():
     if request.method == "POST": #2

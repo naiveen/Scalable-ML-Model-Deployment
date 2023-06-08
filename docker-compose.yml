@@ -1,10 +1,15 @@
 version: "3.8"
 services:
-  server:
-    image: tfs
+  model-cluster-ip-service:
+    image: models/tfs_resnet
+    build: 
+      dockerfile: resnet_server.dockerfile
     ports:
       - '8501:8501'
   web:
-    image: flaskweb
+    image: frontend/flaskweb
+    build:
+      context: ./frontend/
+      dockerfile: ../flaskweb.dockerfile
     ports:
       - '8080:8080'
