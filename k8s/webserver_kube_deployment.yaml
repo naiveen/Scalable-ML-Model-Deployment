@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: flask-web
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       component: flask-web

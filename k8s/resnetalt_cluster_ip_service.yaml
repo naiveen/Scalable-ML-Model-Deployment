@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: model-cluster-ip-service
+  name: resnetalt-cluster-ip-service
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
   - port: 8501
     targetPort: 8501
   selector:
-    component: server
+    component: resnetalt

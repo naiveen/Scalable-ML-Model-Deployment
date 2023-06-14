@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: server
+  name: resnetalt
 spec:
   replicas: 1
   selector:
     matchLabels:
-      component: server
+      component: resnetalt
   template:
     metadata:
       labels:
-        component: server
+        component: resnetalt
     spec:
       containers:
-        - name: server
-          image: beingme97/cs237-resnet-server:1.0
+        - name: resnetalt
+          image: beingme97/cs237-resnetalt-server:1.0
           resources:
             requests:
               memory: "1024Mi"
@@ -28,4 +28,3 @@ spec:
           env:
             - name: MODEL_NAME
               value: "resnet_classification"
-
