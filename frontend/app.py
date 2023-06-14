@@ -62,13 +62,11 @@ def home():
 
     return render_template("index.html") #7
 
-@app.route("/test",methods=["GET","POST"]) #1
+@app.route("/test1",methods=["GET","POST"]) #1
 def test():
     if request.method == "POST": #2
         # resnet_classification is the model name
         SERVER_URL1 = 'http://resnet-cluster-ip-service:8501/v1/models/resnet_classification:predict'
-
-        SERVER_URL2 = 'http://resnetalt-cluster-ip-service:8501/v1/models/resnet_classification:predict'
 
         predict_request = json.dumps(request.json)
         response = requests.post(SERVER_URL1, data=predict_request)
@@ -77,6 +75,19 @@ def test():
 
         return str(prediction)
 
+@app.route("/test2",methods=["GET","POST"]) #1
+def test():
+    if request.method == "POST": #2
+        # resnet_classification is the model name
+        SERVER_URL2 = 'http://resnetalt-cluster-ip-service:8501/v1/models/resnet_classification:predict'
+
+        predict_request = json.dumps(request.json)
+        response = requests.post(SERVER_URL2, data=predict_request)
+        response.raise_for_status() 
+        prediction = response.json()['predictions'][0]
+
+        return str(prediction)    
+    
 app.secret_key = "nlhkjtgjhfhvhjfyfgcjgdtdgcngcghdt"
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=int(environ.get('PORT', 8080)))
