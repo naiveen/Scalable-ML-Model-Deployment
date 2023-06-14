@@ -63,7 +63,7 @@ def home():
     return render_template("index.html") #7
 
 @app.route("/test1",methods=["GET","POST"]) #1
-def test():
+def test1():
     if request.method == "POST": #2
         # resnet_classification is the model name
         SERVER_URL1 = 'http://resnet-cluster-ip-service:8501/v1/models/resnet_classification:predict'
@@ -76,7 +76,7 @@ def test():
         return str(prediction)
 
 @app.route("/test2",methods=["GET","POST"]) #1
-def test():
+def test2():
     if request.method == "POST": #2
         # resnet_classification is the model name
         SERVER_URL2 = 'http://resnetalt-cluster-ip-service:8501/v1/models/resnet_classification:predict'
