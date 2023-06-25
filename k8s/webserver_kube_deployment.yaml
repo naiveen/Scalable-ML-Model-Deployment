@@ -15,6 +15,13 @@ spec:
       containers:
         - name: flask-web
           image: beingme97/cs237-flask-web:1.0
+          resources:
+            requests:
+              memory: "1024Mi"
+              cpu: "500m"
+            limits:
+              memory: "2048Mi"
+              cpu: "1000m"
           ports:
             - containerPort: 8080
           imagePullPolicy: Always
