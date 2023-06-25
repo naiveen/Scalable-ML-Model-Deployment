@@ -1,0 +1,211 @@
+# cluster creation
+gcloud container clusters create-auto hello-cluster     --region=us-west1
+
+# list nodes
+gcloud container node-pools list --cluster hello-cluster
+gcloud container node-pools list --cluster hello-cluster --region us-west1
+
+# context creation
+gcloud container clusters get-credentials hello-cluster     --region us-west1
+
+# print description
+gcloud container clusters describe hello-cluster     --region us-west1
+
+# create kubernetes service using docker image
+kubectl create deployment hello-server     --image=us-docker.pkg.dev/google-samples/containers/gke/hello-app:1.0
+
+# load balancing
+kubectl expose deployment hello-server --type LoadBalancer --port 80 --target-port 8080
+
+kubectl get pods
+
+kubectl get nodes
+
+kubectl get service hello-server
+
+kubectl get pods
+
+kubectl describe pod hello-server-55f4f56d78-zgjw7
+
+kubectl get deployment hello-server
+
+# scaling containers 
+kubectl scale deployment hello-server --replicas 4
+
+# returns actually deployed yaml file
+kubectl get deployment hello-server
+kubectl get nodes
+
+kubectl describe node gk3-hello-cluster-pool-1-a1fe50b6-6pq7
+git clone https://github.com/naiveen/smld.git
+
+gcloud auth configure-docker     us-west1-docker.pkg.dev
+
+docker pull     us-docker.pkg.dev/google-samples/containers/gke/hello-app:1.0
+docker tag     us-docker.pkg.dev/google-samples/containers/gke/hello-app:1.0     us-west1-docker.pkg.dev/quixotic-tesla-389801/quickstart-docker-repo/quickstart-image:tag1
+docker images
+
+# push docker image to google registry
+docker push     us-west1-docker.pkg.dev/quixotic-tesla-389801/quickstart-docker-repo/quickstart-image:tag1
+docker push     us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/quickstart-image:tag1
+
+# renaming
+docker tag     us-docker.pkg.dev/google-samples/containers/gke/hello-app:1.0     us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/quickstart-image:tag1
+docker push     us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/quickstart-image:tag1
+docker images
+docker pull     us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/quickstart-image:tag1
+docker images
+ls
+cd smld/
+ls
+
+# docker build
+docker build --tag us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/web-client:tag1 --file flaskweb.dockerfile .
+docker build --tag us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/web-client:tag1 --file flaskweb.dockerfile frontend/
+docker images
+docker push us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/web-client:tag1
+docker build --tag us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/ml-server:tag1 --file resnet_server.dockerfile .
+docker push us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/ml-server:tag1
+
+# list services
+kubectl list services
+kubectl services
+kubectl get services
+
+# opens yaml in code editor to make modifications realtime
+kubectl edit deployment hello-server
+kubectl get pods
+gcloud auth configure-docker     us-west1-docker.pkg.dev
+kubectl get pods
+
+gcloud container clusters get-credentials hello-cluster
+gcloud auth login
+kubectl get pods
+
+gcloud container clusters get-credentials hello-cluster --region = us-west1
+gcloud container clusters get-credentials hello-cluster
+kubectl get pods
+gcloud container clusters get-credentials hello-cluster     --region us-west1
+gcloud container clusters create-auto hello-cluster     --region=us-west1
+kubectl get pods
+kubectl edit deployment hello-server
+git clone https://github.com/naiveen/smld.git
+ls
+cd smld/
+git pull https://github.com/naiveen/smld.git
+git status
+ls
+docker build --tag us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/web-client:tag2 --file flaskweb.dockerfile frontend/
+docker push us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/web-client:tag2
+docker build --tag us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/ml-server:tag2 --file resnet_server.dockerfile .
+docker push us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/ml-server:tag2
+kubectl get pods
+cat resnet_server.dockerfile 
+kubectl get pods
+git pull
+docker build --tag us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/web-client:tag3 --file flaskweb.dockerfile frontend/
+docker push us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/ml-server:tag3
+docker push us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/web-client:tag3
+gcloud container clusters create-auto ml-cluster-rabbitmq     --location=us-central1
+gcloud container clusters get-credentials ml-cluster-rabbitmq     --location us-central1
+git clone https://github.com/manikanta-72/Deep-Learning-Inference-as-a-Service.git
+kubectl get pods
+gcloud container clusters get-credentials hello-cluster     --location us-central1
+gcloud container clusters get-credentials hello-cluster     --location us-central1
+gcloud container clusters get-credentials hello-cluster     --location us-west1
+kubectl get pods
+
+# enter into a particular container 
+kubectl exec -ti flask-web-5ddbc9dbff-qvf2k bash
+kubectl get pods
+
+# extra info about ip and others
+kubectl get pods -o wide
+gcloud container clusters get-credentials ml-cluster-rabbitmq     --location us-central1
+gcloud config set project quixotic-tesla-389801
+gcloud container clusters get-credentials ml-cluster-rabbitmq     --location us-central1
+kubectl get pods
+#docker build --tag us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/web-client-rabbit:tag1 --file flaskweb.dockerfile frontend/
+cd Deep-Learning-Inference-as-a-Service/
+docker build --tag us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/web-client-rabbit:tag1 --file flaskweb.dockerfile frontend/
+#docker build --tag us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/web-client-rabbit:tag1 --file flaskweb.dockerfile frontend/
+docker push us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237//web-client-rabbit:tag1
+docker push us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/web-client-rabbit:tag1
+docker build --tag us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/rabbit-client:tag1 --file rabbitclient.dockerfile rabbit_client/
+docker push us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/web-client-rabbit:tag1
+docker push us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/rabbit-client:tag1
+kubectl get pods
+kubectl exec -ti rabbit-client-7946f8b8c9-8fr9k bash
+kubectl get pods
+kubectl exec -ti rabbit-client-7946f8b8c9-8fr9k bash
+kubectl get pods
+kubectl exec -ti rabbit-client-7946f8b8c9-8fr9k bash
+kubectl exec -ti ml-server-rabbit-75d8f8d4bf-d66n8 bash
+gcloud container clusters get-credentials hello-cluster     --location us-central1
+gcloud container clusters get-credentials hello-cluster     --location us-west1
+kubectl get pods
+kubectl exec -ti flask-web-5ddbc9dbff-qvf2k bash
+docker pull rabbitmq
+docker tag     rabbitmq:latest     us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/rabbitmq:latest
+docker push  us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/rabbitmq:latest
+docker push us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237//rabbitmq:latest
+docker push us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/rabbitmq:latest
+docker images
+gcloud container clusters get-credentials ml-cluster-rabbitmq     --location us-central1
+gcloud container clusters get-credentials ml-cluster-rabbitmq     --location us-central1
+
+kubectl create deployment rabbitmq --image=rabbitmq:latest
+
+# --replicas 1 intial number of pods
+kubectl scale deployment rabbitmq --replicas 1
+kubectl get pods
+kubectl create deployment rabbitmq-m --image=rabbitmq:3-management
+kubectl scale deployment rabbitmq-m --replicas 1
+cd Deep-Learning-Inference-as-a-Service/
+kubectl get pods
+kubectl exec -ti ml-server-rabbit-75d8f8d4bf-d66n8 bash
+pwd
+docker build --tag us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/rabbit-client:tag2 --file rabbitclient.dockerfile rabbit_client/
+docker push us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/rabbit-client:tag2
+docker build --tag us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/web-client-rabbit:tag2 --file flaskweb.dockerfile frontend/
+docker push us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/web-client-rabbit:tag2
+kubectl get pods
+kubectl describe deployment webapp-rabbit-59b94ddd88-fkknf
+kubectl describe pod webapp-rabbit-59b94ddd88-fkknf
+kubectl get pods
+kubectl describe pod webapp-rabbit-59b94ddd88-fkknf
+kubectl get pods
+docker build --tag us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/web-client-rabbit:tag3 --file flaskweb.dockerfile frontend/
+docker push us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/web-client-rabbit:tag3
+kubectl get pods
+kubectl delete pod webapp-rabbitmq-899d6bf89-5lbhg
+kubectl delete pod webapp-rabbitmq-899d6bf89-chnkl
+kubectl delete pod webapp-rabbitmq-899d6bf89-ft5p9
+kubectl get pods
+docker build --tag us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/web-client-rabbit:tag4 --file flaskweb.dockerfile frontend/
+docker push us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/web-client-rabbit:tag4
+kubectl get pods
+kubectl delete pod rabbitmq-client-597cc47bbc-p6bxh
+kubectl delete pod ml-server-rabbit-75d8f8d4bf-d66n8
+kubectl get pods
+kubectl delete pod rabbitmq-client-597cc47bbc-2xd58
+kubectl get pods
+docker build --tag us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/web-client-rabbit:tag5 --file flaskweb.dockerfile frontend/
+docker push us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/web-client-rabbit:tag5
+kubectl get pods
+kubectl get nodes
+kubectl describe node gk3-ml-cluster-rabbitmq-pool-1-e362ead5-7hr7
+kubectl get nodes
+kubectl get pods
+wget https://github.com/naiveen/smld/blob/master/download.jpeg
+ls
+#docker build --tag us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/rabbit-client:tag3 --file rabbitclient.dockerfile rabbit_client/
+cd Deep-Learning-Inference-as-a-Service/
+docker build --tag us-west1-docker.pkg.dev/quixotic-tesla-389801/cs237/rabbit-client:tag3 --file rabbitclient.dockerfile rabbit_client/
+kubectl get nodes
+gcloud container clusters get-credentials ml-cluster-rabbitmq     --location us-central1
+kubectl get nodes
+kubectl get pods
+ls -la
+cat .bash
+cat .bash_history
